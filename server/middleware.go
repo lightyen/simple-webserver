@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+/** reponse index.html when 404 not found */
 func fallback(filename string, allowAny bool) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		req := c.Request

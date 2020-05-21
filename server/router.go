@@ -18,14 +18,17 @@ func NewRouter(bundleRoot string) *gin.Engine {
 
 	store := persistence.NewInMemoryStore(time.Second)
 	serve := cache.CachePage(store, time.Minute, static.Serve("/", static.LocalFile(bundleRoot, false)))
-	serveFallback := cache.CachePage(store, time.Minute, fallback(filepath.Join(bundleRoot, "index.html"), false))
-	e.NoRoute(serve, serveFallback)
-	// apis := e.Group("/apis", serveFallback)
-	// {
-	// 	apis.GET("/hello", func(c *gin.Context) {
-	// 		c.String(200, "%s\n", "helloworld")
-	// 	})
-	// }
+
+	webFallback := cache.CachePage(store, time.Minute, fallback(filepath.Join(bundleRoot, "index.html"), true))
+	e.NoRoute(serve, webFallback)
+
+	apiFallback := fallback(filepath.Join(bundleRoot, "index.html"), false)
+	apis := e.Group("/apis", apiFallback)
+	{
+		apis.GET("/hello", func(c *gin.Context) {
+			c.JSON(200, struct{}{})
+		})
+	}
 
 	return e
 }

@@ -20,7 +20,7 @@ func init() {
 func main() {
 	srv := &http.Server{
 		Addr:           ":" + port,
-		Handler:        server.NewRouter("www"),
+		Handler:        server.NewRouter("public"),
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
