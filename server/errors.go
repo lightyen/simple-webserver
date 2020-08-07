@@ -3,5 +3,5 @@ package server
 import "errors"
 
 var (
-	BadRequestError = errors.New("Bad Request")
+	ErrBadRequest = errors.New("Bad Request Error")
 )

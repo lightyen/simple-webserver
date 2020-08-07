@@ -14,7 +14,7 @@ var public string
 
 func init() {
 	flag.StringVar(&port, "port", "http", "web service port number")
-	flag.StringVar(&public, "public", "build", "static web resouces place")
+	flag.StringVar(&public, "public", "www", "static web resouces place")
 	flag.Parse()
 }
 
